@@ -1,12 +1,11 @@
 // Central place for team-category + team-size rules.
 // Mirrors the CHECK constraints enforced atomically by the database RPC.
 
-export const TEAM_CATEGORIES = ['Second Year', 'Third Year', 'Fourth Year']
+export const TEAM_CATEGORIES = ['Second Year', 'Third Year']
 
 export const TEAM_SIZES = {
   'Second Year': { min: 4, max: 4 },
   'Third Year': { min: 4, max: 5 },
-  'Fourth Year': { min: 4, max: 4 },
 }
 
 /** Normalize a USN: trim + uppercase. No validity checking — registration data only. */

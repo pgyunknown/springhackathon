@@ -17,14 +17,14 @@ export function Navbar() {
     <header className="border-b border-line bg-white">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
         <Link to="/" className="text-sm font-semibold tracking-tight">
-          Spring Hackathon
+          Spring Hackathon 
         </Link>
         <nav className="flex items-center gap-4 text-sm">
           <Link to="/register/team" className="text-muted hover:text-ink">
             Register Team
           </Link>
           <Link to="/register/mentor" className="text-muted hover:text-ink">
-            Mentor
+            Mentor Registration
           </Link>
           {session ? (
             <>
@@ -37,7 +37,7 @@ export function Navbar() {
             </>
           ) : (
             <Link to="/admin/login" className="text-muted hover:text-ink">
-              Admin
+              Admin Login
             </Link>
           )}
         </nav>

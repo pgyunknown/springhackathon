@@ -65,7 +65,7 @@ export function AdminDashboardPage() {
         <div className="mt-6 rounded-xl border border-line p-5">
           <h2 className="text-sm font-semibold">Teams by category</h2>
           <ul className="mt-2 space-y-1 text-sm text-muted">
-            {['Second Year', 'Third Year', 'Fourth Year'].map((c) => (
+            {['Second Year', 'Third Year'].map((c) => (
               <li key={c} className="flex justify-between">
                 <span>{c}</span>
                 <span className="font-medium text-ink">{counts.byCategory[c] ?? 0}</span>

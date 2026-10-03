@@ -14,12 +14,15 @@ Branch-level hackathon registration system (React + Vite + Tailwind + React Rout
 
 1. Copy env: `cp .env.example .env` and fill `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
    (anon key only — never the service-role key).
-2. **Database (manual step, requires approval):** review
-   `supabase/migrations/0001_init.sql`, then apply it via the Supabase SQL
-   editor against a non-production project first. Do NOT run `supabase db push`
-   against production.
-3. Create an admin auth user (Supabase Dashboard → Authentication), then allow-list it:
-   `insert into public.admin_users (user_id) values ('<auth.users.id>');`
+2. **Database (not yet connected):** this repository was reset for a NEW
+   Supabase project. Do NOT apply `supabase/migrations/0001_init.sql` or
+   `0002_in_place_delta.sql` — both target the abandoned OLD database and are
+   kept as history only. The new project's initial schema has not been
+   created yet. Do NOT run `supabase db push` until a reviewed new-project
+   migration exists.
+3. Once the new project is connected: create an admin auth user (Supabase
+   Dashboard → Authentication); allow-list mechanics will follow the new
+   schema (to be documented here when it lands).
 4. `npm install && npm run dev`
 
 ## Key rules

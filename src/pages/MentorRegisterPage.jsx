@@ -32,7 +32,8 @@ export function MentorRegisterPage() {
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim()))
       e.push('Email format looks invalid.')
     if (!form.phone.trim()) e.push('Phone is required.')
-    if (form.usn && String(form.usn).trim().length > 20) e.push('USN is too long (max 20).')
+    if (!String(form.usn ?? '').trim()) e.push('USN is required.')
+    else if (String(form.usn).trim().length > 20) e.push('USN is too long (max 20).')
     if (form.department && form.department.trim().length > 120)
       e.push('Department is too long (max 120).')
     return e
@@ -94,10 +95,6 @@ export function MentorRegisterPage() {
   return (
     <PageContainer narrow>
       <h1 className="text-2xl font-semibold tracking-tight">Mentor Registration</h1>
-      <p className="mt-2 text-sm text-muted">
-        USN is optional registration data only — it is never validated.
-      </p>
-
       {errors.length > 0 && (
         <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4" role="alert">
           <ul className="list-disc space-y-1 pl-5 text-sm text-red-700">
@@ -119,10 +116,11 @@ export function MentorRegisterPage() {
           placeholder="e.g. Computer Science"
         />
         <USNInput
-          label="USN (optional)"
+          label="USN"
           value={form.usn}
           onChange={(v) => setForm((f) => ({ ...f, usn: v }))}
-          placeholder="If applicable"
+          placeholder="Your USN"
+          required
         />
         <Button type="submit" disabled={submitting} className="w-full sm:w-auto">
           {submitting ? 'Submitting…' : 'Submit Registration'}
