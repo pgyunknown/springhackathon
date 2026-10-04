@@ -2,13 +2,12 @@
 
 Branch-level hackathon registration system (React + Vite + Tailwind + React Router + Supabase).
 
-## Routes
+## Routes (public only)
 
-- `/` — landing (Register Team / Mentor Registration / Admin Access)
+- `/` — landing (Register Team / Mentor Registration)
 - `/register/team` — team registration wizard (all steps on this one URL)
 - `/register/mentor` — mentor registration
-- `/admin/login` — admin sign-in (Supabase Auth)
-- `/admin/dashboard`, `/admin/teams`, `/admin/teams/:id`, `/admin/mentors`, `/admin/settings`
+- Unknown paths redirect to `/`.
 
 ## Setup
 
@@ -20,10 +19,7 @@ Branch-level hackathon registration system (React + Vite + Tailwind + React Rout
    kept as history only. The new project's initial schema has not been
    created yet. Do NOT run `supabase db push` until a reviewed new-project
    migration exists.
-3. Once the new project is connected: create an admin auth user (Supabase
-   Dashboard → Authentication); allow-list mechanics will follow the new
-   schema (to be documented here when it lands).
-4. `npm install && npm run dev`
+3. `npm install && npm run dev`
 
 ## Key rules
 
@@ -32,8 +28,8 @@ Branch-level hackathon registration system (React + Vite + Tailwind + React Rout
 - **Duplicate-USN protection: REQUIRED** and enforced atomically by
   `UNIQUE(team_members.usn)` + checks inside `register_team`.
 - Team sizes: Second Year exactly 4 · Third Year 4 (exactly ONE 5-member slot,
-  enforced by partial unique index `teams_one_third_year_five`) · Fourth Year
-  exactly 4. Category is explicitly selected, never derived from USN.
+  enforced by partial unique index `teams_one_third_year_five`). Category is
+  explicitly selected, never derived from USN.
 - Registration IDs (`HACK-2026-001`, `MENTOR-2026-001`) are generated
   server-side via sequences and returned by the RPC — never in React.
 - All DB access lives in `src/services/`; pages/components contain no raw SQL.

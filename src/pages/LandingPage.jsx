@@ -162,7 +162,7 @@ export function LandingPage() {
         <p className="mx-auto mt-4 max-w-xl text-base text-muted">
           A Intra-Branch Hackathon.
         </p>
-        <div className="mt-10 grid gap-3 sm:grid-cols-3">
+        <div className="mt-10 grid gap-3 sm:grid-cols-2">
           <Link
             to="/register/team"
             className="rounded-xl bg-black px-6 py-5 text-left text-white transition-colors hover:bg-neutral-800"
@@ -178,13 +178,6 @@ export function LandingPage() {
           >
             <span className="block text-base font-semibold">Mentor Registration</span>
             <span className="mt-1 block text-sm text-muted">Sign up as a mentor</span>
-          </Link>
-          <Link
-            to="/admin/login"
-            className="rounded-xl border border-line bg-white px-6 py-5 text-left transition-colors hover:bg-surface"
-          >
-            <span className="block text-base font-semibold">Admin Access</span>
-            <span className="mt-1 block text-sm text-muted">Manage registrations</span>
           </Link>
         </div>
       </section>
