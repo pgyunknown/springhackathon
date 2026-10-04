@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button, Input, Loading, PageContainer, USNInput } from '../components/ui.jsx'
+import { BackHome } from '../components/BackHome.jsx'
 import { SuccessCard } from './TeamRegisterPage.jsx'
 import { getRegistrationStatus, registerMentor } from '../services/publicService.js'
 
@@ -23,6 +24,10 @@ export function MentorRegisterPage() {
   }, [])
 
   const set = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }))
+
+  const isFormDirty = [form.name, form.email, form.phone, form.department, form.usn].some(
+    (v) => String(v ?? '').trim() !== '',
+  )
 
   function validate() {
     const e = []
@@ -64,6 +69,7 @@ export function MentorRegisterPage() {
   if (!statusChecked) {
     return (
       <PageContainer narrow>
+        <BackHome />
         <Loading label="Checking registration status…" />
       </PageContainer>
     )
@@ -72,6 +78,7 @@ export function MentorRegisterPage() {
   if (closed) {
     return (
       <PageContainer narrow>
+        <BackHome />
         <h1 className="text-2xl font-semibold">Mentor registration is closed</h1>
         <p className="mt-2 text-sm text-muted">
           Mentor registrations are currently closed. Please check back later.
@@ -83,6 +90,7 @@ export function MentorRegisterPage() {
   if (result) {
     return (
       <PageContainer narrow>
+        <BackHome />
         <SuccessCard
           title="Registration Successful"
           idLabel="Mentor Registration ID"
@@ -94,6 +102,7 @@ export function MentorRegisterPage() {
 
   return (
     <PageContainer narrow>
+      <BackHome confirm={isFormDirty} />
       <h1 className="text-2xl font-semibold tracking-tight">Mentor Registration</h1>
       {errors.length > 0 && (
         <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4" role="alert">

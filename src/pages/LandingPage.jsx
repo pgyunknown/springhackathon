@@ -5,7 +5,7 @@ import { PageContainer } from '../components/ui.jsx'
 const RULE_GROUPS = [
   {
     id: 'team-registration',
-    title: 'Team Registration Rules',
+    title: 'Registration Rules',
     rules: [
       {
         title: '1. Team Size',
@@ -20,8 +20,14 @@ const RULE_GROUPS = [
         title: '2. Same-Year Teams Only',
         items: [
           'Teams must consist entirely of students from the same year.',
-          '2nd-year students cannot form a team with 3rd-year students.',
-          '3rd-year students cannot form a team with 2nd-year students.',
+          '3rd-year students cannot form a team with 2nd-year students and vise versa.',
+        ],
+      },
+      {
+        title: '3. Mentor Registration',
+        items: [
+          'Only 7th-semester students are eligible to register as mentors for the hackathon.',
+          'Mentors must provide a valid USN registered in the official student database. USN details will be verified during registration.',
         ],
       },
     ],

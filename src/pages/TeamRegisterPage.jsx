@@ -9,6 +9,7 @@ import {
   StepIndicator,
   USNInput,
 } from '../components/ui.jsx'
+import { BackHome } from '../components/BackHome.jsx'
 import { TEAM_CATEGORIES, TEAM_SIZES, normalizeUSN, validateTeamForm } from '../lib/teamRules.js'
 import { getRegistrationStatus, registerTeam } from '../services/publicService.js'
 import { useEffect } from 'react'
@@ -74,6 +75,15 @@ export function TeamRegisterPage() {
 
   const allPeople = useMemo(() => [leader, ...members], [leader, members])
 
+  const isFormDirty =
+    teamName.trim() !== '' ||
+    allPeople.some(
+      (p) =>
+        p.name.trim() !== '' ||
+        normalizeUSN(p.usn) !== '' ||
+        String(p.phone).trim() !== '',
+    )
+
   function validateCurrentStep() {
     if (step === 0) {
       const e = []
@@ -134,6 +144,7 @@ export function TeamRegisterPage() {
   if (!statusChecked) {
     return (
       <PageContainer narrow>
+        <BackHome />
         <Loading label="Checking registration status…" />
       </PageContainer>
     )
@@ -142,6 +153,7 @@ export function TeamRegisterPage() {
   if (closed) {
     return (
       <PageContainer narrow>
+        <BackHome />
         <h1 className="text-2xl font-semibold">Team registration is closed</h1>
         <p className="mt-2 text-sm text-muted">
           Team registrations are currently closed. Please check back later.
@@ -152,6 +164,7 @@ export function TeamRegisterPage() {
 
   return (
     <PageContainer narrow>
+      <BackHome confirm={step < 4 && isFormDirty} />
       <h1 className="text-2xl font-semibold tracking-tight">Team Registration</h1>
       <div className="mt-4">
         <StepIndicator steps={STEPS} current={step} />
