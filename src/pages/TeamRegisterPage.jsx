@@ -17,12 +17,20 @@ import { useEffect } from 'react'
 const STEPS = ['Team Details', 'Team Leader', 'Team Members', 'Review', 'Success']
 const emptyPerson = () => ({ name: '', usn: '', phone: '' })
 
+const FIVE_MEMBER_CLOSED_MSG =
+  'Registration for five-member Third Year teams is closed. This slot has already been filled.'
+
+function isFiveMemberThirdYear(category, memberCount) {
+  return category === 'Third Year' && memberCount === 5
+}
+
 function expectedCount(category, members) {
-  // Show contextual hint: Third Year allows a 5th member only if slot free.
-  // The backend is authoritative; frontend never pre-checks slot availability.
+  // The single Third Year 5-member slot has been filled: Third Year teams
+  // are now exactly 4 members. The backend remains authoritative.
   const rule = TEAM_SIZES[category]
   if (!rule) return ''
-  if (rule.min === rule.max) return `Exactly ${rule.min} members (including leader).`
+  if (rule.min === rule.max || category === 'Third Year')
+    return `Exactly 4 members (including leader).`
   return `${rule.min} members normally; a 5th member is allowed only if the single Third Year 5-member slot is still available.`
 }
 
@@ -67,7 +75,10 @@ export function TeamRegisterPage() {
   }
 
   function canAdd() {
-    return rule && total < rule.max
+    if (!rule) return false
+    // The single Third Year 5-member slot is filled: cap Third Year at 4.
+    if (category === 'Third Year' && total >= 4) return false
+    return total < rule.max
   }
   function canRemove() {
     return rule && total > rule.min
@@ -106,6 +117,10 @@ export function TeamRegisterPage() {
       return leaderErrors.length === 0
     }
     if (step === 2) {
+      if (isFiveMemberThirdYear(category, 1 + members.length)) {
+        setErrors([FIVE_MEMBER_CLOSED_MSG])
+        return false
+      }
       const { errors: e } = validateTeamForm({ teamName: teamName || 'x', category, leader, members })
       // Exclude team-name noise (already validated) — keep member/size/dupe errors.
       const memberErrors = e.filter((m) => !m.startsWith('Team name'))
@@ -123,6 +138,10 @@ export function TeamRegisterPage() {
   }
 
   async function submit() {
+    if (isFiveMemberThirdYear(category, 1 + members.length)) {
+      setErrors([FIVE_MEMBER_CLOSED_MSG])
+      return
+    }
     const { valid, errors: e } = validateTeamForm({ teamName, category, leader, members })
     if (!valid) {
       setErrors(e)
@@ -243,6 +262,9 @@ export function TeamRegisterPage() {
             >
               + Add member
             </Button>
+          )}
+          {category === 'Third Year' && total >= 4 && (
+            <p className="text-sm text-muted">{FIVE_MEMBER_CLOSED_MSG}</p>
           )}
           <div className="flex justify-between">
             <Button variant="secondary" onClick={() => setStep(1)}>
