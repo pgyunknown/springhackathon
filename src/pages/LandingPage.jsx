@@ -192,7 +192,7 @@ export function LandingPage() {
           id="rules-heading"
           className="text-center text-2xl font-semibold tracking-tight"
         >
-          Rules & Regulations
+          Rules And Regulations
         </h2>
         <div className="mt-6 overflow-hidden rounded-xl border border-line bg-white">
           {RULE_GROUPS.map((group) => (
