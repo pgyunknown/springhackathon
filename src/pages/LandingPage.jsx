@@ -12,7 +12,7 @@ const RULE_GROUPS = [
         items: [
           '2nd-year teams: Exactly 4 members.',
           '3rd-year teams: Exactly 4 members.',
-          'Only one 5-member slot is available for a 3rd-year team.',
+          'Only one 5-member slot is available for a 3rd-year team.(First come first serve)',
           'Once the 5-member slot is claimed by the first complete eligible team, no other 5-member 3rd-year team can register.',
         ],
       },
