@@ -166,7 +166,7 @@ export function LandingPage() {
           Spring Hackathon 1.0
         </h1>
         <p className="mx-auto mt-4 max-w-xl text-base text-muted">
-          A Intra-Branch Hackathon.
+          An Intra-Branch Hackathon.
         </p>
         <div className="mt-10 grid gap-3 sm:grid-cols-2">
           <Link
